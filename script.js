@@ -1,3 +1,4 @@
+
 const allPersons = document.getElementById("persons");
 const personNames = Array.from(allPersons.options).map(option => option.value).slice(1);
 
@@ -67,9 +68,17 @@ document.querySelector(".clear-btn").addEventListener("click", function() {
     taskList.innerHTML = "";
     localStorage.clear();
     allTasks=[];
+    location.reset();
 });
 
-
+function displayAlertBox(str){
+    alertHeading.innerHTML="";
+        alertBox.style.display="block";
+        alertBox.style.zIndex="1";
+        // alertBox.style.boxShadow = "10px 20px 30px 5000px rgba(228, 228, 225, 0.5)";
+        alertBox.style.boxShadow = "0 0 0 1000px rgba(0, 0, 0, .3)";
+        alertHeading.innerHTML=str;
+}
 
 
 document.getElementById("myForm").addEventListener("submit", function(e) {
@@ -79,23 +88,26 @@ document.getElementById("myForm").addEventListener("submit", function(e) {
     const textAreaa = document.querySelector(".task-description textarea");
     if (inputBox.value.trim() === "") {
         // const alertButton=document.querySelector(".custom-alert button");
-        alertHeading.innerHTML="";
-        alertBox.style.display="block";
-        alertBox.style.zIndex="1";
-        alertBox.style.boxShadow = "10px 20px 30px 5000px rgba(228, 228, 225, 0.5)";
-        alertHeading.innerHTML=`Title cant be blank...`
+        // alertHeading.innerHTML="";
+        // alertBox.style.display="block";
+        // alertBox.style.zIndex="1";
+        // alertBox.style.boxShadow = "10px 20px 30px 5000px rgba(228, 228, 225, 0.5)";
+        // alertHeading.innerHTML=`Title cant be blank...`;
+        displayAlertBox("Title cant be blank...");
         return;
 
         // alert("Title cant be blank...");
     }
 
     if(inputBox.value.trim().length>25){
-        alert("Title cant be soo long...");
+        displayAlertBox("Title cant be soo long...");
+        // alert("Title cant be soo long...");
         return;
     }
 
     if (textAreaa.value.trim() === "") {
-        alert("Add description too...");
+        displayAlertBox("Add description too...");
+        // alert("Add description too...");
         return;
     }
 
@@ -128,36 +140,43 @@ document.getElementById("myForm").addEventListener("submit", function(e) {
 
 
         if (!data.meeting) {
-            alert("Select the meeting type...");
+            displayAlertBox("Select the meeting type...");
+            // alert("Select the meeting type...");
             return;
         }
 
         if (data.meeting == "personal" && persons.length == 0) {
-            alert("Select the person as well..");
+            displayAlertBox("Select the person as well..");
+            // alert("Select the person as well..");
             return;
         }
 
         if(data.meeting == "personal" && persons.length>1){
-            alert("Personal Meeting is for only person, select Group Meeting for multiple persons...");
+            displayAlertBox("Personal Meeting is for only person, select Group Meeting for multiple persons...");
+            // alert("Personal Meeting is for only person, select Group Meeting for multiple persons...");
             return;
         }
 
         if (data.meeting == "group" && persons.length <= 1) {
-            alert("Select at least 2 persons...");
+            displayAlertBox("Select at least 2 persons...");
+            // alert("Select at least 2 persons...");
             return;
         }
 
         if (!data.date) {
-            alert("Select the date...");
+            displayAlertBox("Select the date...");
+            // alert("Select the date...");
             return;
         }
 
         if (!data.time) {
-            alert("Select the time too..");
+            displayAlertBox("Select the time too..");
+            // alert("Select the time too..");
             return;
         }
         if (!data["am-pm"]) {
-            alert("Select if its AM or PM");
+            displayAlertBox("Select if its AM or PM");
+            // alert("Select if its AM or PM");
             return;
         }
 
