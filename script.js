@@ -322,6 +322,9 @@ document.getElementById("myForm").addEventListener("submit", function(e) {
     inputBox.style.border="1px solid black";
     textArea.style.border="1px solid black";
 
+    let temp=document.querySelector(".filters .active");
+    filterTasks(temp.id);
+
 });
 
 
