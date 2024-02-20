@@ -2,12 +2,13 @@
 const allPersons = document.getElementById("persons");
 const personNames = Array.from(allPersons.options).map(option => option.value).slice(1);
 
+
+const inputBox = document.querySelector(".task-title input");    
+const textArea = document.querySelector(".task-description textarea");
 const groups=document.querySelectorAll(".group1"); //---------->> form elements
 
 const alertBox=document.querySelector(".custom-alert");        //------>>> alert box refrences
 const alertHeading=document.querySelector(".custom-alert h2");
-
-
 
 console.log(personNames);
 
@@ -33,6 +34,24 @@ const busyTimings = {
         "2024-02-22": ["11am", "4pm", "6pm"]
     }
 };
+
+inputBox.addEventListener("change",function(){
+    if(inputBox.value.trim()===""){
+        inputBox.style.border="2px solid red";
+    }
+    else{
+        inputBox.style.border="2px solid green";
+    }
+});
+
+textArea.addEventListener("change",function(){
+    if(textArea.value.trim()===""){
+        textArea.style.border="2px solid red";
+    }
+    else{
+        textArea.style.border="2px solid green";
+    }
+});
 
 
 
@@ -79,8 +98,7 @@ function displayAlertBox(str){
 document.getElementById("myForm").addEventListener("submit", function(e) {
     e.preventDefault();
 
-    const inputBox = document.querySelector(".task-title input");
-    const textArea = document.querySelector(".task-description textarea");
+
     if (inputBox.value.trim() === "") {
         displayAlertBox("Title cant be blank...");
         return;
@@ -301,6 +319,9 @@ document.getElementById("myForm").addEventListener("submit", function(e) {
         group.style.display="none"
     );
 
+    inputBox.style.border="1px solid black";
+    textArea.style.border="1px solid black";
+
 });
 
 
@@ -388,8 +409,6 @@ function filterTasks(filter) { //ok
     });
 }
 
-
-
 document.addEventListener("DOMContentLoaded", function() {
     const dtToday = new Date();
     const month = (dtToday.getMonth() + 1).toString().padStart(2, '0');
@@ -416,5 +435,13 @@ document.querySelector(".alert-button").addEventListener("click",function(){
     const alertBox=document.querySelector(".custom-alert");
     alertBox.style.display="none";
 });
+
+//new changes here date :- 3/19/2023
+/* SCROLL UP,  added the border red to invalid inputbox and textareas
+Filters are getting dynamically updated
+hidding the group1 form elements after hitting submit
+custome alerts
+*/ 
+
 
 

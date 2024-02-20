@@ -122,8 +122,10 @@ form{
     align-items: flex-start;
 }
 
+
 .task-description textarea{
     resize: vertical;
+    max-height: 150px;
 }
 
 .meeting, .person-select, .date-pick, .time-pick{
@@ -261,6 +263,10 @@ form{
 }
 .box-div p{
     max-width: 100%;
+}
+
+.box-div h3{
+    text-transform: uppercase;
 }
 
 .avail-list{
