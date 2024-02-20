@@ -58,7 +58,9 @@ body::-webkit-scrollbar{
 
 .custom-alert button{
     margin-left: 80%;
-    margin-top: 4rem;
+    margin-top: auto;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
     cursor: pointer;
     outline:none;
     border: none;
@@ -118,6 +120,10 @@ form{
 .task-description, .person-select{
     display: flex;
     align-items: flex-start;
+}
+
+.task-description textarea{
+    resize: vertical;
 }
 
 .meeting, .person-select, .date-pick, .time-pick{
@@ -221,11 +227,11 @@ form{
     height: auto;
     /* padding: 20px; */
     margin: 2.3rem;
-    
+    overflow-wrap: break-word;
 }
 
 .check input[type="checkbox"] {
-    width: 3em;
+    width: 3rem;
     height: 3rem;
     accent-color: #ebffeb;
   }
@@ -237,6 +243,7 @@ form{
 
 .box-div{
     display: flex;
+    flex-wrap: wrap; 
     width:80%;
     margin-left: 3rem;
     flex-direction: column;
@@ -244,11 +251,16 @@ form{
     justify-content: center;
     border: 2px solid black;
     background-color: #c6f5fe;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
     
 }
 
 .box-div h3{
     color: rgb(247, 68, 107);
+}
+.box-div p{
+    max-width: 100%;
 }
 
 .avail-list{
