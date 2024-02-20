@@ -2,6 +2,7 @@
 const allPersons = document.getElementById("persons");
 const personNames = Array.from(allPersons.options).map(option => option.value).slice(1);
 
+const groups=document.querySelectorAll(".group1"); //---------->> form elements
 
 const alertBox=document.querySelector(".custom-alert");        //------>>> alert box refrences
 const alertHeading=document.querySelector(".custom-alert h2");
@@ -12,24 +13,24 @@ console.log(personNames);
 
 const busyTimings = {
     "john": {
-        "2024-02-19": ["10am", "11am", "1pm", "2pm"],
-        "2024-02-20": ["5am", "9am", "7pm", "10pm"],
-        "2024-02-21": ["6am", "11am", "12pm", "1pm"]
+        "2024-02-20": ["10am", "11am", "1pm", "2pm"],
+        "2024-02-21": ["5am", "9am", "7pm", "10pm"],
+        "2024-02-22": ["6am", "11am", "12pm", "1pm"]
     },
     "alice": {
-        "2024-02-19": ["10am", "11am", "3pm"],
-        "2024-02-20": ["8am", "1pm", "3pm"],
-        "2024-02-21": ["10am", "12pm", "2pm"]
+        "2024-02-20": ["10am", "11am", "3pm"],
+        "2024-02-21": ["8am", "1pm", "3pm"],
+        "2024-02-22": ["10am", "12pm", "2pm"]
     },
     "bob": {
-        "2024-02-19": ["12pm", "1pm", "2pm"],
-        "2024-02-20": ["4am", "6am", "8pm"],
-        "2024-02-21": ["9am", "10am", "11am"]
+        "2024-02-20": ["12pm", "1pm", "2pm"],
+        "2024-02-21": ["4am", "6am", "8pm"],
+        "2024-02-22": ["9am", "10am", "11am"]
     },
     "jack": {
-        "2024-02-19": ["11pm", "5pm", "9pm"],
-        "2024-02-20": ["7am", "11am", "4pm"],
-        "2024-02-21": ["11am", "4pm", "6pm"]
+        "2024-02-20": ["11pm", "5pm", "9pm"],
+        "2024-02-21": ["7am", "11am", "4pm"],
+        "2024-02-22": ["11am", "4pm", "6pm"]
     }
 };
 
@@ -42,12 +43,7 @@ console.log(allTasks);
 
 document.querySelector(".category").addEventListener("click", function(event) {
 
-
-    const groups=document.querySelectorAll(".group1");
-
     if (event.target.tagName === "INPUT" && event.target.value === "remainders") {
-        event.target.checked=true;
-        document.getElementById("notes").checked=false;
         groups.forEach(group =>
             group.style.display="flex"
         );
@@ -68,12 +64,11 @@ document.querySelector(".clear-btn").addEventListener("click", function() {
     taskList.innerHTML = "";
     localStorage.clear();
     allTasks=[];
-    location.reset();
 });
 
 function displayAlertBox(str){
     alertHeading.innerHTML="";
-        alertBox.style.display="block";
+        alertBox.style.display="flex";
         alertBox.style.zIndex="1";
         // alertBox.style.boxShadow = "10px 20px 30px 5000px rgba(228, 228, 225, 0.5)";
         alertBox.style.boxShadow = "0 0 0 1000px rgba(0, 0, 0, .3)";
@@ -85,27 +80,21 @@ document.getElementById("myForm").addEventListener("submit", function(e) {
     e.preventDefault();
 
     const inputBox = document.querySelector(".task-title input");
-    const textAreaa = document.querySelector(".task-description textarea");
+    const textArea = document.querySelector(".task-description textarea");
     if (inputBox.value.trim() === "") {
-        // const alertButton=document.querySelector(".custom-alert button");
-        // alertHeading.innerHTML="";
-        // alertBox.style.display="block";
-        // alertBox.style.zIndex="1";
-        // alertBox.style.boxShadow = "10px 20px 30px 5000px rgba(228, 228, 225, 0.5)";
-        // alertHeading.innerHTML=`Title cant be blank...`;
         displayAlertBox("Title cant be blank...");
         return;
 
         // alert("Title cant be blank...");
     }
 
-    if(inputBox.value.trim().length>25){
+    if(inputBox.value.trim().length>45){
         displayAlertBox("Title cant be soo long...");
         // alert("Title cant be soo long...");
         return;
     }
 
-    if (textAreaa.value.trim() === "") {
+    if (textArea.value.trim() === "") {
         displayAlertBox("Add description too...");
         // alert("Add description too...");
         return;
@@ -116,11 +105,6 @@ document.getElementById("myForm").addEventListener("submit", function(e) {
     const category = data.category;
 
     console.log(data.date);
-
-    if (!category) {
-        alert("Select the category...");
-        return;
-    }
 
     if (category === "notes") {
 
@@ -198,21 +182,16 @@ document.getElementById("myForm").addEventListener("submit", function(e) {
         for(let i=0;i<persons.length;i++){
             
             let name=persons[i].toLowerCase();
-            console.log(name);
-            console.log(busyTimings[name].hasOwnProperty(dateS) && busyTimings[name][dateS].includes(mergedTime));
-
-            console.log(mergedTime);
             if(busyTimings[name].hasOwnProperty(dateS) && busyTimings[name][dateS].includes(mergedTime)){
                 busyPeople.push(persons[i]);
             }
 
         }
-        console.log(persons);
-        console.log(busyPeople);
 
         if(busyPeople.length>0){
             const busyName=busyPeople[0].toLowerCase();
-            alert("Oops... "+busyPeople+" is busy at the selected time slot");
+            // alert("Oops... "+busyPeople+" is busy at the selected time slot");
+            displayAlertBox("Oops... "+busyPeople+" is busy at the selected time slot");
             const availabilityList=document.querySelector(".avail-list");
             availabilityList.innerHTML='';
             const ourBusyTimings=[];
@@ -228,7 +207,7 @@ document.getElementById("myForm").addEventListener("submit", function(e) {
                     personBusyTimings.push(busyTimings[nam.toLowerCase()][dateS]);
                 }
                 console.log(personBusyTimings);
-                personBusyTimings=[...new Set(personBusyTimings.flat())]
+                personBusyTimings=[...new Set(personBusyTimings.flat())];
                 console.log(personBusyTimings);
 
             }
@@ -295,7 +274,8 @@ document.getElementById("myForm").addEventListener("submit", function(e) {
 
         if (overlappingTask) {
             const allPeople=people.join(",");
-            alert("Another meeting is already scheduled for the same time on this date for "+allPeople);
+            // alert("Another meeting is already scheduled for the same time on this date for "+allPeople);
+            displayAlertBox("Another meeting is already scheduled for the same time on this date for "+allPeople);
             return;
         }
 
@@ -317,6 +297,10 @@ document.getElementById("myForm").addEventListener("submit", function(e) {
     }
     this.reset();
     storeTasks();
+    groups.forEach(group =>
+        group.style.display="none"
+    );
+
 });
 
 
@@ -358,6 +342,8 @@ function displayTaskAsCard(task) {
             card.querySelector(".box-div").style.backgroundColor = "#dfdfff";
         }
         storeTasks();
+        let temp=document.querySelector(".filters .active");
+        filterTasks(temp.id);  //---------->>> simple 
     });
     
     if (task.completed) {
@@ -426,7 +412,7 @@ document.querySelector(".meeting").addEventListener("click", function(event){
     }
 });
 
-document.querySelector(".alert-button").addEventListener("click",function(e){
+document.querySelector(".alert-button").addEventListener("click",function(){
     const alertBox=document.querySelector(".custom-alert");
     alertBox.style.display="none";
 });
