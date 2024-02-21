@@ -325,6 +325,7 @@ document.getElementById("myForm").addEventListener("submit", function(e) {
     let temp=document.querySelector(".filters .active");
     filterTasks(temp.id);
 
+    document.getElementById("persons").multiple=false;
 });
 
 
